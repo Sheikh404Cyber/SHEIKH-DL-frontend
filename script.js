@@ -1,6 +1,6 @@
 // ==================== CONFIG ====================
 // পরে Render থেকে URL পাওয়ার পর এখানে বসাবে
-const BACKEND_URL = "https://your-backend.onrender.com";
+const BACKEND_URL = "https://sheikh-dl-backend.onrender.com";
 
 // ==================== THEME TOGGLE ====================
 const themeToggle = document.getElementById("themeToggle");
