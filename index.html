@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SHEIKH-DL | Universal Video Downloader</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span class="logo-icon">⬇</span>
+      <span class="logo-text">SHEIKH<span class="accent">-DL</span></span>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">🎬 Universal Video Downloader</div>
+      <h1 class="hero-title">
+        <span class="title-line1">SHEIKH</span>
+        <span class="title-line2 accent">-DL</span>
+      </h1>
+      <p class="hero-subtitle">Download videos from any platform — instantly, freely, beautifully.</p>
+
+      <!-- Supported Platforms -->
+      <div class="platforms">
+        <div class="platform-item" title="YouTube">
+          <i class="fab fa-youtube" style="color:#FF0000"></i>
+          <span>YouTube</span>
+        </div>
+        <div class="platform-item" title="Facebook">
+          <i class="fab fa-facebook" style="color:#1877F2"></i>
+          <span>Facebook</span>
+        </div>
+        <div class="platform-item" title="Instagram">
+          <i class="fab fa-instagram" style="color:#E1306C"></i>
+          <span>Instagram</span>
+        </div>
+        <div class="platform-item" title="TikTok">
+          <i class="fab fa-tiktok" style="color:#69C9D0"></i>
+          <span>TikTok</span>
+        </div>
+        <div class="platform-item" title="Twitter">
+          <i class="fab fa-twitter" style="color:#1DA1F2"></i>
+          <span>Twitter</span>
+        </div>
+        <div class="platform-item" title="Vimeo">
+          <i class="fab fa-vimeo" style="color:#1AB7EA"></i>
+          <span>Vimeo</span>
+        </div>
+        <div class="platform-item" title="1000+ Sites">
+          <i class="fas fa-globe" style="color:#00FFB2"></i>
+          <span>1000+ More</span>
+        </div>
+      </div>
+
+      <!-- Download Box -->
+      <div class="download-box">
+        <div class="input-wrapper">
+          <i class="fas fa-link input-icon"></i>
+          <input
+            type="text"
+            id="videoUrl"
+            class="url-input"
+            placeholder="Paste your video link here..."
+            autocomplete="off"
+          />
+          <button class="fetch-btn" id="fetchBtn" onclick="fetchQualities()">
+            <i class="fas fa-search"></i> Fetch
+          </button>
+        </div>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+          <div class="loader-ring"></div>
+          <span>Fetching video info...</span>
+        </div>
+
+        <!-- Video Info -->
+        <div class="video-info" id="videoInfo">
+          <div class="video-thumb-wrapper">
+            <img id="videoThumb" src="" alt="Thumbnail" class="video-thumb"/>
+            <div class="thumb-overlay">
+              <i class="fas fa-play-circle"></i>
+            </div>
+          </div>
+          <div class="video-details">
+            <h3 id="videoTitle" class="video-title"></h3>
+            <p id="videoDuration" class="video-duration"></p>
+            <div class="quality-selector">
+              <label><i class="fas fa-sliders-h"></i> Select Quality:</label>
+              <select id="qualitySelect" class="quality-select">
+              </select>
+            </div>
+            <button class="download-btn" onclick="downloadVideo()">
+              <i class="fas fa-download"></i>
+              <span>Download Now</span>
+              <div class="btn-shine"></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div class="error-box" id="errorBox">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span id="errorMsg"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Cinematic lines -->
+    <div class="cin-line cin-line1"></div>
+    <div class="cin-line cin-line2"></div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps">
+      <div class="step-card">
+        <div class="step-icon"><i class="fas fa-copy"></i></div>
+        <div class="step-num">01</div>
+        <h3>Copy Link</h3>
+        <p>Copy the video URL from any supported platform</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+      <div class="step-card">
+        <div class="step-icon"><i class="fas fa-search"></i></div>
+        <div class="step-num">02</div>
+        <h3>Fetch Info</h3>
+        <p>Paste the link and click Fetch to get video details</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+      <div class="step-card">
+        <div class="step-icon"><i class="fas fa-sliders-h"></i></div>
+        <div class="step-num">03</div>
+        <h3>Choose Quality</h3>
+        <p>Select your preferred video quality or audio only</p>
+      </div>
+      <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
+      <div class="step-card">
+        <div class="step-icon"><i class="fas fa-download"></i></div>
+        <div class="step-num">04</div>
+        <h3>Download</h3>
+        <p>Click Download and get your video instantly</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <span class="logo-icon">⬇</span>
+      <span class="logo-text">SHEIKH<span class="accent">-DL</span></span>
+    </div>
+    <p class="footer-text">Made with ❤️ for everyone | Download freely, use responsibly.</p>
+    <p class="footer-copy">© 2024 SHEIKH-DL. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
