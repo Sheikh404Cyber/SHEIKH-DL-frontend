@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SHEIKH-DL | Universal Video Downloader</title>
+  <title>SHEIKH Downloader | Universal Video Downloader</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet"/>
@@ -13,11 +13,14 @@
   <!-- Particle Background -->
   <div class="particles" id="particles"></div>
 
+  <!-- Cinematic top bar -->
+  <div class="cin-topbar"></div>
+
   <!-- Navbar -->
   <nav class="navbar">
     <div class="nav-logo">
       <span class="logo-icon">⬇</span>
-      <span class="logo-text">SHEIKH<span class="accent">-DL</span></span>
+      <span class="logo-text">SHEIKH<span class="accent">-Downloader</span></span>
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
@@ -29,12 +32,23 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge">🎬 Universal Video Downloader</div>
+
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        🎬 Universal Video Downloader — Premium Experience
+      </div>
+
       <h1 class="hero-title">
         <span class="title-line1">SHEIKH</span>
-        <span class="title-line2 accent">-DL</span>
+        <span class="title-line2 accent">Downloader</span>
       </h1>
-      <p class="hero-subtitle">Download videos from any platform — instantly, freely, beautifully.</p>
+
+      <p class="hero-subtitle">
+        Download any video from any platform —
+        <span class="highlight">instantly</span>,
+        <span class="highlight">freely</span>, and
+        <span class="highlight">beautifully</span>.
+      </p>
 
       <!-- Supported Platforms -->
       <div class="platforms">
@@ -70,6 +84,13 @@
 
       <!-- Download Box -->
       <div class="download-box">
+        <div class="box-header">
+          <span class="box-header-dot red"></span>
+          <span class="box-header-dot yellow"></span>
+          <span class="box-header-dot green"></span>
+          <span class="box-header-title">✦ Video Downloader Terminal ✦</span>
+        </div>
+
         <div class="input-wrapper">
           <i class="fas fa-link input-icon"></i>
           <input
@@ -80,14 +101,14 @@
             autocomplete="off"
           />
           <button class="fetch-btn" id="fetchBtn" onclick="fetchQualities()">
-            <i class="fas fa-search"></i> Fetch
+            <i class="fas fa-bolt"></i> Analyze
           </button>
         </div>
 
         <!-- Loading -->
         <div class="loading" id="loading">
           <div class="loader-ring"></div>
-          <span>Fetching video info...</span>
+          <span class="loading-text">Analyzing video source<span class="dots"></span></span>
         </div>
 
         <!-- Video Info -->
@@ -103,8 +124,7 @@
             <p id="videoDuration" class="video-duration"></p>
             <div class="quality-selector">
               <label><i class="fas fa-sliders-h"></i> Select Quality:</label>
-              <select id="qualitySelect" class="quality-select">
-              </select>
+              <select id="qualitySelect" class="quality-select"></select>
             </div>
             <button class="download-btn" onclick="downloadVideo()">
               <i class="fas fa-download"></i>
@@ -119,8 +139,8 @@
           <i class="fas fa-exclamation-triangle"></i>
           <span id="errorMsg"></span>
         </div>
-      </div>
 
+      </div>
     </div>
 
     <!-- Cinematic lines -->
@@ -130,7 +150,8 @@
 
   <!-- How It Works -->
   <section class="how-it-works">
-    <h2 class="section-title">How It Works</h2>
+    <div class="section-badge">Simple Process</div>
+    <h2 class="section-title">How It <span class="accent">Works</span></h2>
     <div class="steps">
       <div class="step-card">
         <div class="step-icon"><i class="fas fa-copy"></i></div>
@@ -140,10 +161,10 @@
       </div>
       <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
       <div class="step-card">
-        <div class="step-icon"><i class="fas fa-search"></i></div>
+        <div class="step-icon"><i class="fas fa-bolt"></i></div>
         <div class="step-num">02</div>
-        <h3>Fetch Info</h3>
-        <p>Paste the link and click Fetch to get video details</p>
+        <h3>Analyze</h3>
+        <p>Paste the link and click Analyze to get video details</p>
       </div>
       <div class="step-arrow"><i class="fas fa-chevron-right"></i></div>
       <div class="step-card">
@@ -166,10 +187,16 @@
   <footer class="footer">
     <div class="footer-logo">
       <span class="logo-icon">⬇</span>
-      <span class="logo-text">SHEIKH<span class="accent">-DL</span></span>
+      <span class="logo-text">SHEIKH<span class="accent">-Downloader</span></span>
     </div>
     <p class="footer-text">Made with ❤️ for everyone | Download freely, use responsibly.</p>
-    <p class="footer-copy">© 2024 SHEIKH-DL. All rights reserved.</p>
+    <div class="footer-developer">
+      <span>Developed by</span>
+      <a href="https://www.facebook.com/AMIN.SHEIKH.01" target="_blank" class="dev-link">
+        <i class="fab fa-facebook"></i> Amin Sheikh
+      </a>
+    </div>
+    <p class="footer-copy">© 2026 SHEIKH-Downloader. All rights reserved.</p>
   </footer>
 
   <script src="script.js"></script>
