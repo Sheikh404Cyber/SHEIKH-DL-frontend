@@ -388,6 +388,14 @@ body {
   color: var(--text-secondary);
   letter-spacing: 2px;
   margin-left: 5px;
+  animation: titleFlicker 5s ease infinite;
+}
+
+@keyframes titleFlicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.4; }
+  97% { opacity: 1; }
+  98% { opacity: 0.4; }
 }
 
 /* ==================== INPUT ==================== */
@@ -395,13 +403,12 @@ body {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: var(--bg-input);
-  border-bottom: 1px solid var(--border);
-  padding: 5px 5px 5px 18px;
-  transition: all 0.3s ease;
   margin: 20px;
   border-radius: 12px;
   border: 1px solid var(--border);
+  background: var(--bg-input);
+  padding: 5px 5px 5px 18px;
+  transition: all 0.3s ease;
 }
 
 .input-wrapper:focus-within {
