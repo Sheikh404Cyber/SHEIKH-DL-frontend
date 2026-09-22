@@ -1,5 +1,4 @@
 // ==================== CONFIG ====================
-// পরে Render থেকে URL পাওয়ার পর এখানে বসাবে
 const BACKEND_URL = "https://sheikh-dl-backend.onrender.com";
 
 // ==================== THEME TOGGLE ====================
@@ -7,7 +6,6 @@ const themeToggle = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 const html = document.documentElement;
 
-// Load saved theme
 const savedTheme = localStorage.getItem("theme") || "dark";
 html.setAttribute("data-theme", savedTheme);
 updateThemeIcon(savedTheme);
@@ -31,13 +29,11 @@ const colors = ["#00FFB2", "#7B2FFF", "#FF2F7B", "#1DA1F2", "#ffffff"];
 function createParticle() {
   const p = document.createElement("div");
   p.classList.add("particle");
-
   const size = Math.random() * 4 + 1;
   const color = colors[Math.floor(Math.random() * colors.length)];
   const left = Math.random() * 100;
   const duration = Math.random() * 15 + 8;
   const delay = Math.random() * 5;
-
   p.style.cssText = `
     width: ${size}px;
     height: ${size}px;
@@ -48,15 +44,22 @@ function createParticle() {
     animation-delay: ${delay}s;
     box-shadow: 0 0 ${size * 2}px ${color};
   `;
-
   particleContainer.appendChild(p);
-
   setTimeout(() => p.remove(), (duration + delay) * 1000);
 }
 
-// Create particles continuously
 setInterval(createParticle, 400);
 for (let i = 0; i < 20; i++) createParticle();
+
+// ==================== DOTS ANIMATION ====================
+const dotsEl = document.querySelector(".dots");
+if (dotsEl) {
+  let dotCount = 0;
+  setInterval(() => {
+    dotCount = (dotCount + 1) % 4;
+    dotsEl.textContent = ".".repeat(dotCount);
+  }, 400);
+}
 
 // ==================== SCROLL ANIMATIONS ====================
 const observer = new IntersectionObserver(
@@ -76,17 +79,13 @@ document.querySelectorAll(".step-card").forEach((card) => {
   observer.observe(card);
 });
 
-// ==================== HELPER FUNCTIONS ====================
+// ==================== HELPERS ====================
 function showLoading(show) {
-  document.getElementById("loading").style.display = show
-    ? "flex"
-    : "none";
+  document.getElementById("loading").style.display = show ? "flex" : "none";
 }
 
 function showVideoInfo(show) {
-  document.getElementById("videoInfo").style.display = show
-    ? "flex"
-    : "none";
+  document.getElementById("videoInfo").style.display = show ? "flex" : "none";
 }
 
 function showError(msg) {
@@ -111,7 +110,8 @@ function formatDuration(seconds) {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = seconds % 60;
-  if (h > 0) return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  if (h > 0)
+    return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
@@ -124,7 +124,6 @@ async function fetchQualities() {
     return;
   }
 
-  // Basic URL validation
   try {
     new URL(url);
   } catch {
@@ -135,10 +134,9 @@ async function fetchQualities() {
   resetAll();
   showLoading(true);
 
-  // Disable fetch button
   const fetchBtn = document.getElementById("fetchBtn");
   fetchBtn.disabled = true;
-  fetchBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Fetching...`;
+  fetchBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Analyzing...`;
 
   try {
     const response = await fetch(`${BACKEND_URL}/info`, {
@@ -153,13 +151,12 @@ async function fetchQualities() {
       throw new Error(data.error || "Failed to fetch video info");
     }
 
-    // Fill video info
-    document.getElementById("videoTitle").textContent = data.title || "Unknown Title";
+    document.getElementById("videoTitle").textContent =
+      data.title || "Unknown Title";
     document.getElementById("videoDuration").textContent = data.duration
       ? `⏱ ${formatDuration(data.duration)}`
       : "";
 
-    // Thumbnail
     const thumb = document.getElementById("videoThumb");
     if (data.thumbnail) {
       thumb.src = data.thumbnail;
@@ -168,7 +165,6 @@ async function fetchQualities() {
       };
     }
 
-    // Fill quality options
     const select = document.getElementById("qualitySelect");
     select.innerHTML = "";
 
@@ -188,13 +184,12 @@ async function fetchQualities() {
 
     showLoading(false);
     showVideoInfo(true);
-
   } catch (err) {
     showLoading(false);
     showError(err.message || "Something went wrong. Please try again.");
   } finally {
     fetchBtn.disabled = false;
-    fetchBtn.innerHTML = `<i class="fas fa-search"></i> Fetch`;
+    fetchBtn.innerHTML = `<i class="fas fa-bolt"></i> Analyze`;
   }
 }
 
@@ -206,7 +201,6 @@ async function downloadVideo() {
 
   if (!url || !formatId) return;
 
-  // Button loading state
   downloadBtn.disabled = true;
   downloadBtn.innerHTML = `
     <div class="loader-ring" style="width:20px;height:20px;border-width:2px;"></div>
@@ -225,15 +219,15 @@ async function downloadVideo() {
       throw new Error(err.error || "Download failed");
     }
 
-    // Get filename from headers
     const disposition = response.headers.get("Content-Disposition");
     let filename = "video.mp4";
     if (disposition) {
-      const match = disposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+      const match = disposition.match(
+        /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+      );
       if (match) filename = match[1].replace(/['"]/g, "");
     }
 
-    // Trigger download
     const blob = await response.blob();
     const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -244,16 +238,15 @@ async function downloadVideo() {
     a.remove();
     URL.revokeObjectURL(blobUrl);
 
-    // Success state
     downloadBtn.innerHTML = `<i class="fas fa-check"></i> <span>Downloaded!</span><div class="btn-shine"></div>`;
-    downloadBtn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
+    downloadBtn.style.background =
+      "linear-gradient(135deg, #00c853, #00e676)";
 
     setTimeout(() => {
       downloadBtn.disabled = false;
       downloadBtn.innerHTML = `<i class="fas fa-download"></i><span>Download Now</span><div class="btn-shine"></div>`;
       downloadBtn.style.background = "";
     }, 3000);
-
   } catch (err) {
     showError(err.message || "Download failed. Please try again.");
     downloadBtn.disabled = false;
@@ -261,7 +254,7 @@ async function downloadVideo() {
   }
 }
 
-// ==================== ENTER KEY SUPPORT ====================
+// ==================== ENTER KEY ====================
 document.getElementById("videoUrl").addEventListener("keypress", (e) => {
   if (e.key === "Enter") fetchQualities();
 });
